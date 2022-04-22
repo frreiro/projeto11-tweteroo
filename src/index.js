@@ -3,38 +3,25 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
-const users = [
-    {
-        username: "bobesponja",
-        avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
-    }
-];
-const tweets = [
-    {
-        username: "bobesponja",
-        avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
-        tweet: "eu amo o hub"
-    }
-
-];
+const users = [];
+const tweets = [];
 
 
 app.post("/sign-up", (req, res) => {
-    // users.push({
-    //     username: 'bobesponja',
-    //     avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
-    // });
-    res.send("OK")
+    const newUser = req.body;
+    const { username, avatar } = newUser;
+    users.push({
+        username: username,
+        avatar: avatar
+    });
+    res.send("OK");
 })
 
 app.post("/tweets", (req, res) => {
-    processTweets(
-        {
-            username: "bobesponja",
-            tweet: "eu não odeio o hub"
-        })
-
+    const newTweet = req.body;
+    processTweets(newTweet)
     res.send("OK");
 })
 
